@@ -54,3 +54,6 @@ function getUserMedia(options, successCallback, failureCallback) {
       })
       .catch(err => alert('Error: ' + err));
   }
+
+  document.getElementById("GetStreamButton").addEventListener("click", getStream);
+  document.getElementById("TakeFotoButton").addEventListener("click", takePhoto);
