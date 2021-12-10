@@ -56,4 +56,4 @@ function getUserMedia(options, successCallback, failureCallback) {
   }
 
   document.getElementById("GetStreamButton").addEventListener("click", getStream);
-  document.getElementById("TakeFotoButton").addEventListener("click", takePhoto);
+  document.getElementById("TakePhotoButton").addEventListener("click", takePhoto);
