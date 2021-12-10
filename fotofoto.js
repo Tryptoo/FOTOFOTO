@@ -50,10 +50,28 @@ function getUserMedia(options, successCallback, failureCallback) {
     theImageCapturer.takePhoto()
       .then(blob => {
         var theImageTag = document.getElementById("imageTag");
-        theImageTag.src = URL.createObjectURL(blob);
+        const myImage = new File([blob], 'lastImage.webp', { type: blob.type });
+        theImageTag.src = URL.createObjectURL(myImage);
       })
       .catch(err => alert('Error: ' + err));
   }
 
+  function share() {
+    if (!("share" in navigator)) {
+      alert('Web Share API not supported.');
+      return;
+    }
+  
+    var theImageTag = document.getElementById("imageTag");
+    navigator.share({
+        title: 'FOTOFOTO',
+        text: 'Look at my cool Foto !',
+        url: theImageTag.src
+      })
+      .then(() => console.log('Successful share'))
+      .catch(error => console.log('Error sharing:', error));
+  }
+
   document.getElementById("GetStreamButton").addEventListener("click", getStream);
   document.getElementById("TakePhotoButton").addEventListener("click", takePhoto);
+  document.getElementById("ShareButton").addEventListener("click", share);
