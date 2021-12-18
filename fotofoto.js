@@ -89,3 +89,34 @@ function getUserMedia(options, successCallback, failureCallback) {
   document.getElementById("GetStreamButton").addEventListener("click", getStream);
   document.getElementById("TakePhotoButton").addEventListener("click", takePhoto);
   document.getElementById("ShareButton").addEventListener("click", share);
+
+export default {
+  name: 'AddToHomeScreen',
+  data: () => ({
+    deferredPrompt: null,
+  }),
+  mounted() {
+    this.captureEvent()
+  },
+  methods: {
+    captureEvent() {
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // ! Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault()
+        // Stash the event so it can be triggered later.
+        this.deferredPrompt = e
+      })
+    },
+    clickCallback() {
+      // Show the prompt
+      this.deferredPrompt.prompt()
+      // Wait for the user to respond to the prompt
+      this.deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          // Call another function?
+        }
+        this.deferredPrompt = null
+      })
+    },
+  },
+}
