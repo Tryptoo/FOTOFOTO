@@ -33,6 +33,8 @@ function getUserMedia(options, successCallback, failureCallback) {
       alert('Error: ' + err);
     });
   }
+
+  var blobImage
   
   function takePhoto() {
     if (!('ImageCapture' in window)) {
@@ -51,48 +53,37 @@ function getUserMedia(options, successCallback, failureCallback) {
       .then(blob => {
         var theImageTag = document.getElementById("imageTag");
 
-        var reader = new FileReader();
-        reader.readAsDataURL(blob); 
-        reader.onloadend = function() {
-          var base64data = reader.result;                
-          console.log(base64data);
-          theImageTag.src = base64data;
-        }
+        blobImage = blob
 
+        theImageTag.src = URL.createObjectURL(blob);
       })
       .catch(err => alert('Error: ' + err));
   }
 
-  function share() {
+  async function share() {
     if (!("share" in navigator)) {
       alert('Web Share API not supported.');
       return;
     }
-  
-    var theImageTag = document.getElementById("imageTag");
-    navigator.share({
-        title: 'FOTOFOTO',
-        text: 'Look at my cool Foto !',
-        files: fileName.value + '.webp'
-      })
-      .then(() => console.log('Successful share'))
-      .catch(error => console.log('Error sharing:', error));
-  }
-
-  async function shareImage() {
+    
     const filesArray = [
       new File(
-        [blob],
+        [blobImage],
         'meme.jpg',
         {
           type: "image/jpeg",
         }
      )
     ];
-    const shareData = {
-      files: filesArray,
-    };
-    navigator.share(shareData);
+
+    var theImageTag = document.getElementById("imageTag");
+    navigator.share({
+        title: 'FOTOFOTO',
+        text: 'Look at my cool Foto !',
+        files: filesArray
+      })
+      .then(() => console.log('Successful share'))
+      .catch(error => console.log('Error sharing:', error));
   }
 
   document.getElementById("GetStreamButton").addEventListener("click", getStream);
