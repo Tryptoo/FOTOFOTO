@@ -1,0 +1,18 @@
+{
+    "short_name": "FOTOFOTO",
+    "name": "FOTOFOTO",
+    "icons": [
+      {
+        "src": "launcher-icon-1x.png",
+        "sizes": "48x48"
+      },
+      {
+        "src": "launcher-icon-2x.png",
+        "sizes": "96x96"
+      }
+    ],
+    "theme_color": "#ff0000",
+    "background_color": "#ff0000",
+    "start_url": "index.html",
+    "display": "standalone"
+  }
