@@ -86,9 +86,43 @@ function getUserMedia(options, successCallback, failureCallback) {
       .catch(error => console.log('Error sharing:', error));
   }
 
-  document.getElementById("GetStreamButton").addEventListener("click", getStream);
-  document.getElementById("TakePhotoButton").addEventListener("click", takePhoto);
-  document.getElementById("ShareButton").addEventListener("click", share);
+function download() {
+  if (blobImage) {
+    //code from "https://dev.to/nombrekeff/download-file-from-blob-21ho"
+    //////////////////////////////////////////////////////////////////////
+    // Convert your blob into a Blob URL (a special url that points to an object in the browser's memory)
+    const blobUrl = URL.createObjectURL(blobImage);
+
+    // Create a link element
+    const link = document.createElement("a");
+
+    // Set link's href to point to the Blob URL
+    link.href = blobUrl;
+    link.download = "foto.jpg";
+
+    // Append link to the body
+    document.body.appendChild(link);
+
+    // Dispatch click event on the link
+    // This is necessary as link.click() does not work on the latest firefox
+    link.dispatchEvent(
+      new MouseEvent('click', { 
+        bubbles: true, 
+        cancelable: true, 
+        view: window 
+      })
+    );
+
+    // Remove link from body
+    document.body.removeChild(link);
+    //////////////////////////////////////////////////////////////////////
+  }
+}
+
+document.getElementById("GetStreamButton").addEventListener("click", getStream);
+document.getElementById("TakePhotoButton").addEventListener("click", takePhoto);
+document.getElementById("ShareButton").addEventListener("click", share);
+document.getElementById("DownloadButton").addEventListener("click", download);
 
 export default {
   name: 'AddToHomeScreen',
