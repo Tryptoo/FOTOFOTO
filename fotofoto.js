@@ -50,8 +50,15 @@ function getUserMedia(options, successCallback, failureCallback) {
     theImageCapturer.takePhoto()
       .then(blob => {
         var theImageTag = document.getElementById("imageTag");
-        const myImage = new File([blob], 'lastImage.webp', { type: blob.type });
-        theImageTag.src = URL.createObjectURL(myImage);
+
+        var reader = new FileReader();
+        reader.readAsDataURL(blob); 
+        reader.onloadend = function() {
+          var base64data = reader.result;                
+          console.log(base64data);
+          theImageTag.src = base64data;
+        }
+
       })
       .catch(err => alert('Error: ' + err));
   }
@@ -66,10 +73,26 @@ function getUserMedia(options, successCallback, failureCallback) {
     navigator.share({
         title: 'FOTOFOTO',
         text: 'Look at my cool Foto !',
-        url: theImageTag.src
+        files: fileName.value + '.webp'
       })
       .then(() => console.log('Successful share'))
       .catch(error => console.log('Error sharing:', error));
+  }
+
+  async function shareImage() {
+    const filesArray = [
+      new File(
+        [blob],
+        'meme.jpg',
+        {
+          type: "image/jpeg",
+        }
+     )
+    ];
+    const shareData = {
+      files: filesArray,
+    };
+    navigator.share(shareData);
   }
 
   document.getElementById("GetStreamButton").addEventListener("click", getStream);
