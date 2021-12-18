@@ -6,7 +6,7 @@
     <link href="style.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <script src="fotofoto.js" defer></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -23,7 +23,8 @@
     <p><img id="imageTag"></p>
     <p><button id="ShareButton">Share FOTO</button></p>
     <p><button id="DownloadButton">Download</button></p>
-    <p><button v-if="deferredPrompt"
+    <p><button id="HomeButton"
+      v-if="deferredPrompt"
       ref="addBtn"
       class="add-button"
       @click="clickCallback">
