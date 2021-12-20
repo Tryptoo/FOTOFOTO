@@ -122,6 +122,7 @@ function download() {
 document.getElementById("GetStreamButton").addEventListener("click", getStream);
 document.getElementById("TakePhotoButton").addEventListener("click", takePhoto);
 document.getElementById("ShareButton").addEventListener("click", share);
+document.getElementById("DownloadButton").addEventListener("click", download);
 
 let deferredPrompt;
 const addBtn = document.querySelector('#addBtn');
