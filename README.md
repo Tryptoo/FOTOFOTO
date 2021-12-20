@@ -14,4 +14,4 @@ L'implémentation de ces fonctionnalités s'est révélée plus complexe que pr�
 Github ne permettait pas d'accéder à l'installation sur l'écran d'accueil,
 nous sommes donc resté un moment sur ce problème avant d'essayer sur Netlify.
 
-https://mystifying-goldwasser-5c4bab.netlify.app/
+https://eloquent-stonebraker-21e767.netlify.app/
